@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALR Card Shipment Tracking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>VALR Card Tracking</title>
     <style>
         * {
             margin: 0;
@@ -13,178 +12,137 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0a1628 100%);
             min-height: 100vh;
-            color: #e2e8f0;
+            color: white;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         /* Header */
         .header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            font-size: 28px;
+            font-weight: bold;
+            color: #3b82f6;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
+        .logo span {
+            color: white;
         }
 
-        .logo-text h1 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .logo-text span {
-            font-size: 0.7rem;
+        .tagline {
             color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .admin-btn {
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #93c5fd;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.3s;
-        }
-
-        .admin-btn:hover {
-            background: rgba(59, 130, 246, 0.3);
-        }
-
-        /* Main Content */
-        .main {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
+            font-size: 14px;
+            margin-top: 5px;
         }
 
         /* Tracking Form */
         .tracking-form {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(255,255,255,0.05);
             border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 25px;
+            margin-bottom: 25px;
         }
 
         .form-title {
+            font-size: 18px;
+            margin-bottom: 20px;
             text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-title h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
-
-        .form-title p {
-            color: #94a3b8;
-            font-size: 0.9rem;
         }
 
         .input-group {
             display: flex;
-            gap: 0.75rem;
-            flex-direction: column;
+            gap: 10px;
         }
 
         .tracking-input {
             flex: 1;
-            padding: 1rem;
-            font-size: 1rem;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            background: rgba(15, 23, 42, 0.8);
-            color: #fff;
-            text-align: center;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
         }
 
         .tracking-input:focus {
-            outline: none;
             border-color: #3b82f6;
         }
 
         .tracking-input::placeholder {
             color: #64748b;
-            text-transform: none;
-            letter-spacing: normal;
         }
 
-        .submit-btn {
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        .track-btn {
+            padding: 15px 25px;
+            background: #3b82f6;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.3s;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        .track-btn:hover {
+            background: #2563eb;
         }
 
-        .info-box {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
+        /* Route Display */
+        .route-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .location {
             text-align: center;
         }
 
-        .info-box p {
-            color: #93c5fd;
-            font-size: 0.85rem;
+        .flag {
+            font-size: 36px;
+            margin-bottom: 8px;
         }
 
-        /* Error Message */
-        .error-message {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 1rem;
+        .country {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .route-line {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+        }
+
+        .plane-icon {
+            font-size: 24px;
+            animation: fly 2s infinite;
+        }
+
+        @keyframes fly {
+            0%, 100% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
         }
 
         /* Result Section */
@@ -196,78 +154,92 @@
             display: block;
         }
 
+        /* Welcome Card */
         .welcome-card {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        .welcome-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        .welcome-text {
+            font-size: 14px;
+            opacity: 0.9;
         }
 
-        .tracking-code-display {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            display: inline-block;
-            font-family: monospace;
-            font-size: 1rem;
-            letter-spacing: 1px;
+        .client-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0;
         }
 
-        /* Shipment Map */
-        .shipment-map {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .map-header {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .map-header h3 {
-            font-size: 1rem;
-            color: #94a3b8;
-            margin-bottom: 0.25rem;
-        }
-
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
-            padding: 0.25rem 0.75rem;
+        .tracking-code {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .info-card.full-width {
+            grid-column: span 2;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 14px;
             font-weight: 600;
         }
 
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        .status-badge {
+            display: inline-block;
+            background: #3b82f6;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+        /* Map Section */
+        .map-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .map-visual {
+        .map-title {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .map-container {
             position: relative;
             height: 120px;
-            margin: 1.5rem 0;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d253f 100%);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .map-line {
@@ -275,165 +247,92 @@
             top: 50%;
             left: 10%;
             right: 10%;
-            height: 4px;
-            background: rgba(59, 130, 246, 0.3);
-            border-radius: 2px;
+            height: 3px;
+            background: rgba(255,255,255,0.2);
             transform: translateY(-50%);
         }
 
         .map-progress {
             position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
-            border-radius: 2px;
-            transition: width 0.5s ease;
+            top: 50%;
+            left: 10%;
+            width: 25%;
+            height: 3px;
+            background: #22c55e;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px #22c55e;
         }
 
-        .location-point {
+        .map-plane {
             position: absolute;
             top: 50%;
+            left: calc(10% + 25%);
             transform: translate(-50%, -50%);
+            font-size: 24px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .map-point {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             text-align: center;
         }
 
-        .location-point.usa { left: 10%; }
-        .location-point.sa { right: 10%; transform: translate(50%, -50%); }
-
-        .location-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(30, 41, 59, 0.9);
-            border: 3px solid #3b82f6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        .map-point.start {
+            left: 10%;
+            transform: translate(-50%, -50%);
         }
 
-        .location-point.sa .location-icon {
-            border-color: #22c55e;
+        .map-point.end {
+            right: 10%;
+            transform: translate(50%, -50%);
         }
 
-        .location-name {
-            font-size: 0.7rem;
+        .map-point .flag {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .map-point .label {
+            font-size: 10px;
             color: #94a3b8;
-            white-space: nowrap;
         }
 
-        .plane-icon {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-            z-index: 10;
-            transition: left 0.5s ease;
-            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
-        }
-
-        .progress-text {
+        .progress-label {
             text-align: center;
-            font-size: 0.9rem;
-            color: #60a5fa;
-            font-weight: 600;
-        }
-
-        /* Info Cards */
-        .info-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-        }
-
-        .info-card.full-width {
-            grid-column: span 2;
-        }
-
-        .info-card-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-        }
-
-        .info-card-value {
-            font-size: 0.95rem;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-badge.in-progress {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-        }
-
-        .status-badge.completed {
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #22c55e;
         }
 
         /* Timeline */
         .timeline-section {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(255,255,255,0.05);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
         .timeline-title {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            color: #fff;
-        }
-
-        .timeline {
-            position: relative;
+            font-size: 16px;
+            margin-bottom: 20px;
         }
 
         .timeline-item {
             display: flex;
-            gap: 1rem;
-            padding-bottom: 1.5rem;
+            align-items: flex-start;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .timeline-item:last-child {
-            padding-bottom: 0;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 35px;
-            bottom: 0;
-            width: 2px;
-            background: rgba(59, 130, 246, 0.3);
-        }
-
-        .timeline-item:last-child::before {
-            display: none;
+            margin-bottom: 0;
         }
 
         .timeline-icon {
@@ -443,152 +342,149 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 14px;
+            margin-right: 15px;
             flex-shrink: 0;
-            z-index: 1;
         }
 
         .timeline-icon.completed {
             background: #22c55e;
-            color: white;
         }
 
         .timeline-icon.current {
             background: #3b82f6;
-            color: white;
-            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
         }
 
         .timeline-icon.pending {
-            background: rgba(100, 116, 139, 0.5);
+            background: #475569;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .timeline-label.pending {
             color: #64748b;
         }
 
-        .timeline-content h4 {
-            font-size: 0.95rem;
-            color: #fff;
-            margin-bottom: 0.25rem;
-        }
-
-        .timeline-content p {
-            font-size: 0.8rem;
+        .timeline-date {
+            font-size: 12px;
             color: #64748b;
+            margin-top: 3px;
         }
 
-        .timeline-item.completed .timeline-content h4 {
-            color: #4ade80;
+        .timeline-connector {
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background: #334155;
         }
 
-        .timeline-item.current .timeline-content h4 {
-            color: #60a5fa;
+        .timeline-item:last-child .timeline-connector {
+            display: none;
         }
 
-        .timeline-item.pending .timeline-content h4 {
-            color: #64748b;
+        /* Notes Section */
+        .notes-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        /* Back Button */
-        .back-btn {
-            background: transparent;
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            color: #93c5fd;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
+        .notes-title {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .notes-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Address Section */
+        .address-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .address-title {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin: 1.5rem auto;
-            transition: all 0.3s;
+            gap: 8px;
         }
 
-        .back-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
+        .address-content {
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        /* Admin Login */
-        .admin-login {
+        /* Error Message */
+        .error-message {
             display: none;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .admin-login.active {
-            display: block;
-        }
-
-        .login-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .login-title {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .login-title h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-title p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            color: #94a3b8;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3b82f6;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            border: none;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
             border-radius: 12px;
-            cursor: pointer;
-            margin-top: 1rem;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .cancel-btn {
-            width: 100%;
-            padding: 0.875rem;
-            font-size: 0.9rem;
-            background: transparent;
+        .error-message.active {
+            display: block;
+        }
+
+        .error-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .error-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .error-text {
+            font-size: 14px;
             color: #94a3b8;
-            border: 1px solid rgba(100, 116, 139, 0.4);
+        }
+
+        /* Admin Section */
+        .admin-link {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .admin-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 25px;
             border-radius: 10px;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 0.75rem;
+            transition: background 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         /* Admin Panel */
@@ -600,322 +496,399 @@
             display: block;
         }
 
+        /* Login Form */
+        .login-form {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        .login-title {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #2563eb;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        .login-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+        }
+
+        .admin-dashboard.active {
+            display: block;
+        }
+
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 25px;
         }
 
-        .admin-header h2 {
-            font-size: 1.5rem;
+        .admin-title {
+            font-size: 20px;
         }
 
         .logout-btn {
             background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 0.5rem 1rem;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.875rem;
-        }
-
-        .shipment-list {
-            margin-bottom: 1.5rem;
+            font-size: 14px;
         }
 
         .shipment-card {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(255,255,255,0.05);
             border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            padding: 20px;
+            margin-bottom: 15px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background 0.3s;
         }
 
         .shipment-card:hover {
-            border-color: #3b82f6;
-            transform: translateY(-2px);
+            background: rgba(255,255,255,0.1);
         }
 
-        .shipment-card-header {
+        .shipment-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 10px;
         }
 
-        .shipment-card-header h3 {
-            font-size: 1rem;
-            color: #fff;
+        .shipment-client {
+            font-size: 18px;
+            font-weight: 600;
         }
 
-        .shipment-card p {
-            font-size: 0.85rem;
-            color: #64748b;
-            font-family: monospace;
+        .shipment-code {
+            font-size: 12px;
+            color: #94a3b8;
         }
 
-        /* Edit Form */
-        .edit-form {
+        /* Edit Modal */
+        .modal-overlay {
             display: none;
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .edit-form.active {
-            display: block;
-        }
-
-        .edit-form h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .form-group textarea {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.8);
-            color: #fff;
-            font-size: 1rem;
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .button-group {
+        .modal-overlay.active {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
+        }
+
+        .modal-content {
+            background: #1a365d;
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .form-select option {
+            background: #1a365d;
+            color: white;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .save-btn {
             flex: 1;
-            padding: 0.875rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            padding: 15px;
+            background: #22c55e;
             color: white;
             border: none;
             border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
         }
 
-        .cancel-edit-btn {
+        .cancel-btn {
             flex: 1;
-            padding: 0.875rem;
-            background: transparent;
-            color: #94a3b8;
-            border: 1px solid rgba(100, 116, 139, 0.4);
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
             border-radius: 10px;
+            font-size: 16px;
             cursor: pointer;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 2rem;
+            padding: 30px 0;
             color: #64748b;
-            font-size: 0.8rem;
-        }
-
-        /* Success Toast */
-        .toast {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #22c55e;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            font-weight: 500;
-            z-index: 1000;
-            animation: slideUp 0.3s ease;
-        }
-
-        .toast.active {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translate(-50%, 20px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .info-card.full-width {
-                grid-column: span 1;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">📦</div>
-                <div class="logo-text">
-                    <h1>VALR</h1>
-                    <span>Card Logistics</span>
-                </div>
-            </div>
-            <button class="admin-btn" id="adminAccessBtn">🔐 Admin Access</button>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">VALR<span> Card Services</span></div>
+            <div class="tagline">International Card Shipment Tracking</div>
         </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Client Tracking Section -->
-        <section class="tracking-section" id="trackingSection">
+        <!-- Client Section -->
+        <div id="clientSection">
+            <!-- Tracking Form -->
             <div class="tracking-form">
-                <div class="form-title">
-                    <h2>📍 Track Your Shipment</h2>
-                    <p>Enter your tracking code to see your card status</p>
-                </div>
-                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <div class="form-title">Track Your Card Shipment</div>
                 <div class="input-group">
-                    <input type="text" class="tracking-input" id="trackingInput" placeholder="Enter your tracking code">
-                    <button class="submit-btn" id="trackBtn">🔍 Track Shipment</button>
-                </div>
-                <div class="info-box">
-                    <p>💳 Your tracking code was provided when your VALR Card was issued</p>
+                    <input type="text" id="trackingInput" class="tracking-input" placeholder="Enter your tracking code">
+                    <button class="track-btn" onclick="trackShipment()">Track</button>
                 </div>
             </div>
-        </section>
 
-        <!-- Result Section -->
-        <section class="result-section" id="resultSection">
-            <!-- Welcome Card -->
-            <div class="welcome-card">
-                <h2>Welcome, <span id="clientName"></span>!</h2>
-                <div class="tracking-code-display" id="trackingCodeDisplay"></div>
+            <!-- Route Display -->
+            <div class="route-display">
+                <div class="location">
+                    <div class="flag">🇺🇸</div>
+                    <div class="country">United States</div>
+                </div>
+                <div class="route-line">
+                    <span class="plane-icon">✈️</span>
+                </div>
+                <div class="location">
+                    <div class="flag">🇿🇦</div>
+                    <div class="country">South Africa</div>
+                </div>
             </div>
 
-            <!-- Shipment Map -->
-            <div class="shipment-map">
-                <div class="map-header">
-                    <h3>Shipment Progress</h3>
-                    <div class="live-badge">
-                        <div class="live-dot"></div>
-                        LIVE TRACKING
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message">
+                <div class="error-icon">❌</div>
+                <div class="error-title">Tracking Code Not Found</div>
+                <div class="error-text">Please check your tracking code and try again.</div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="resultSection" class="result-section">
+                <!-- Welcome Card -->
+                <div class="welcome-card">
+                    <div class="welcome-text">Welcome,</div>
+                    <div class="client-name" id="clientName">Philadelphia</div>
+                    <div class="tracking-code" id="displayCode">VALR-US-ZA-A9F72Q</div>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Current Status</div>
+                        <div class="info-value">
+                            <span class="status-badge" id="statusBadge">Secured for shipment</span>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Last Updated</div>
+                        <div class="info-value" id="lastUpdated">Fri, 06 Feb 2026, 12:00</div>
+                    </div>
+                    <div class="info-card full-width">
+                        <div class="info-label">Expected Arrival</div>
+                        <div class="info-value" id="expectedArrival">Tuesday, February 10, 2026</div>
                     </div>
                 </div>
-                <div class="map-visual">
-                    <div class="location-point usa">
-                        <div class="location-icon">🇺🇸</div>
-                        <div class="location-name">United States</div>
-                    </div>
-                    <div class="map-line">
+
+                <!-- Map Section -->
+                <div class="map-section">
+                    <div class="map-title">📍 Live Shipment Tracking</div>
+                    <div class="map-container">
+                        <div class="map-point start">
+                            <div class="flag">🇺🇸</div>
+                            <div class="label">USA</div>
+                        </div>
+                        <div class="map-line"></div>
                         <div class="map-progress" id="mapProgress"></div>
+                        <div class="map-plane" id="mapPlane">✈️</div>
+                        <div class="map-point end">
+                            <div class="flag">🇿🇦</div>
+                            <div class="label">SA</div>
+                        </div>
                     </div>
-                    <div class="plane-icon" id="planeIcon">✈️</div>
-                    <div class="location-point sa">
-                        <div class="location-icon">🇿🇦</div>
-                        <div class="location-name">South Africa</div>
-                    </div>
+                    <div class="progress-label" id="progressLabel">🟢 25% Complete - Preparing for departure</div>
                 </div>
-                <div class="progress-text" id="progressText">0% Complete</div>
-            </div>
 
-            <!-- Info Cards -->
-            <div class="info-cards">
-                <div class="info-card">
-                    <div class="info-card-label">Status</div>
-                    <div class="info-card-value"><span class="status-badge in-progress" id="statusBadge"></span></div>
+                <!-- Timeline -->
+                <div class="timeline-section">
+                    <div class="timeline-title">📦 Shipment Timeline</div>
+                    <div id="timeline"></div>
                 </div>
-                <div class="info-card">
-                    <div class="info-card-label">Last Updated</div>
-                    <div class="info-card-value" id="lastUpdated"></div>
+
+                <!-- Delivery Address -->
+                <div class="address-section">
+                    <div class="address-title">📍 Delivery Address</div>
+                    <div class="address-content" id="deliveryAddress">480 Eritrea Street, Tsutsumani Village, Alexandra Township 2090</div>
                 </div>
-                <div class="info-card full-width">
-                    <div class="info-card-label">Delivery Address</div>
-                    <div class="info-card-value" id="deliveryAddress"></div>
-                </div>
-                <div class="info-card full-width">
-                    <div class="info-card-label">Expected Delivery</div>
-                    <div class="info-card-value" id="expectedDelivery"></div>
-                </div>
-                <div class="info-card full-width" id="notesCard" style="display: none;">
-                    <div class="info-card-label">Notes</div>
-                    <div class="info-card-value" id="notes"></div>
+
+                <!-- Shipment Notes -->
+                <div class="notes-section">
+                    <div class="notes-title">📝 Shipment Notes</div>
+                    <div class="notes-content" id="shipmentNotes">Ready for shipping. Diplomatic flight scheduled for 7th February 2026.</div>
                 </div>
             </div>
 
-            <!-- Timeline -->
-            <div class="timeline-section">
-                <h3 class="timeline-title">📋 Shipment Timeline</h3>
-                <div class="timeline" id="timeline"></div>
+            <!-- Admin Link -->
+            <div class="admin-link">
+                <button class="admin-btn" onclick="showAdminLogin()">🔐 Admin Access</button>
             </div>
-
-            <button class="back-btn" id="backBtn">← Track Another Shipment</button>
-        </section>
+        </div>
 
         <!-- Admin Login -->
-        <section class="admin-login" id="adminLogin">
-            <div class="login-card">
-                <div class="login-title">
-                    <h2>🔐 Admin Login</h2>
-                    <p>Enter your credentials to access the dashboard</p>
-                </div>
-                <div id="loginError" class="error-message" style="display: none;"></div>
+        <div id="adminLogin" class="admin-panel">
+            <div class="login-form">
+                <div class="login-title">🔐 Admin Login</div>
+                <div id="loginError" class="login-error">Invalid username or password</div>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="usernameInput" placeholder="Enter username">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="adminUsername" class="form-input" placeholder="Enter username">
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="passwordInput" placeholder="Enter password">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="adminPassword" class="form-input" placeholder="Enter password">
                 </div>
-                <button class="login-btn" id="loginBtn">Login</button>
-                <button class="cancel-btn" id="cancelLoginBtn">Cancel</button>
+                <button class="login-btn" onclick="adminLogin()">Login</button>
+                <div class="back-btn" onclick="showClient()">← Back to Tracking</div>
             </div>
-        </section>
+        </div>
 
-        <!-- Admin Panel -->
-        <section class="admin-panel" id="adminPanel">
+        <!-- Admin Dashboard -->
+        <div id="adminDashboard" class="admin-dashboard">
             <div class="admin-header">
-                <h2>📊 Admin Dashboard</h2>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
+                <div class="admin-title">📊 Admin Dashboard</div>
+                <button class="logout-btn" onclick="adminLogout()">Logout</button>
             </div>
+            <div id="shipmentList"></div>
+        </div>
 
-            <!-- Edit Form -->
-            <div class="edit-form" id="editForm">
-                <h3>✏️ Edit Shipment: <span id="editClientName"></span></h3>
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-title">Edit Shipment</div>
+                <input type="hidden" id="editTrackingCode">
                 <div class="form-group">
-                    <label>Tracking Code</label>
-                    <input type="text" id="editTrackingCode" readonly style="opacity: 0.7;">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" id="editClientName" class="form-input">
                 </div>
                 <div class="form-group">
-                    <label>Status</label>
-                    <select id="editStatus">
+                    <label class="form-label">Status</label>
+                    <select id="editStatus" class="form-select">
                         <option value="Card issued & funded">Card issued & funded</option>
                         <option value="Secured for shipment">Secured for shipment</option>
                         <option value="Dispatched from US">Dispatched from US</option>
@@ -926,37 +899,29 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Notes</label>
-                    <textarea id="editNotes" placeholder="Add delivery notes..."></textarea>
+                    <label class="form-label">Delivery Address</label>
+                    <input type="text" id="editAddress" class="form-input">
                 </div>
-                <div class="button-group">
-                    <button class="save-btn" id="saveBtn">💾 Save Changes</button>
-                    <button class="cancel-edit-btn" id="cancelEditBtn">Cancel</button>
+                <div class="form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea id="editNotes" class="form-textarea"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button class="save-btn" onclick="saveShipment()">Save Changes</button>
                 </div>
             </div>
+        </div>
 
-            <!-- Shipment List -->
-            <div class="shipment-list" id="shipmentList"></div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 VALR Card Logistics. All rights reserved.</p>
-    </footer>
-
-    <!-- Toast -->
-    <div class="toast" id="toast"></div>
+        <!-- Footer -->
+        <div class="footer">
+            © 2026 VALR Card Services. All rights reserved.
+        </div>
+    </div>
 
     <script>
-        // =====================
-        // DATA & STORAGE
-        // =====================
-        const STORAGE_KEY = 'valr_shipments_v5';
-        const ADMIN_USERNAME = 'valradmin';
-        const ADMIN_PASSWORD = 'VALR@2026';
-
-        const STATUSES = [
+        // Shipment stages
+        const stages = [
             'Card issued & funded',
             'Secured for shipment',
             'Dispatched from US',
@@ -966,7 +931,8 @@
             'Delivered'
         ];
 
-        const DEFAULT_SHIPMENTS = [
+        // Default shipment data for Philadelphia
+        const defaultShipments = [
             {
                 trackingCode: 'VALR-US-ZA-A9F72Q',
                 clientName: 'Philadelphia',
@@ -974,318 +940,208 @@
                 origin: 'United States',
                 destination: 'South Africa',
                 deliveryAddress: '480 Eritrea Street, Tsutsumani Village, Alexandra Township 2090',
-                estimatedDelivery: '2026-02-10',
-                lastUpdate: new Date().toISOString(),
-                notes: 'Ready for shipping. Diplomatic flight scheduled for 10th February 2026.'
+                lastUpdate: '2026-02-06T12:00:00Z',
+                expectedDelivery: '2026-02-10',
+                notes: 'Ready for shipping. Diplomatic flight scheduled for 7th February 2026.'
             }
         ];
 
+        // Initialize data
+        function initData() {
+            const stored = localStorage.getItem('valr_shipments_v3');
+            if (!stored) {
+                localStorage.setItem('valr_shipments_v3', JSON.stringify(defaultShipments));
+            }
+        }
+
+        // Get shipments
         function getShipments() {
-            const data = localStorage.getItem(STORAGE_KEY);
-            if (!data) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SHIPMENTS));
-                return DEFAULT_SHIPMENTS;
-            }
-            return JSON.parse(data);
+            const stored = localStorage.getItem('valr_shipments_v3');
+            return stored ? JSON.parse(stored) : defaultShipments;
         }
 
+        // Save shipments
         function saveShipments(shipments) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(shipments));
+            localStorage.setItem('valr_shipments_v3', JSON.stringify(shipments));
         }
 
-        function findShipment(trackingCode) {
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return date.toLocaleDateString('en-GB', options).replace(',', '');
+        }
+
+        // Format delivery date
+        function formatDeliveryDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Track shipment
+        function trackShipment() {
+            const code = document.getElementById('trackingInput').value.trim().toUpperCase();
             const shipments = getShipments();
-            return shipments.find(s => s.trackingCode.toUpperCase() === trackingCode.toUpperCase());
-        }
+            const shipment = shipments.find(s => s.trackingCode === code);
 
-        function updateShipment(trackingCode, updates) {
-            const shipments = getShipments();
-            const index = shipments.findIndex(s => s.trackingCode === trackingCode);
-            if (index !== -1) {
-                shipments[index] = { ...shipments[index], ...updates, lastUpdate: new Date().toISOString() };
-                saveShipments(shipments);
-                return shipments[index];
-            }
-            return null;
-        }
+            document.getElementById('errorMessage').classList.remove('active');
+            document.getElementById('resultSection').classList.remove('active');
 
-        // =====================
-        // UI ELEMENTS
-        // =====================
-        const trackingSection = document.getElementById('trackingSection');
-        const resultSection = document.getElementById('resultSection');
-        const adminLogin = document.getElementById('adminLogin');
-        const adminPanel = document.getElementById('adminPanel');
-        const trackingInput = document.getElementById('trackingInput');
-        const trackBtn = document.getElementById('trackBtn');
-        const backBtn = document.getElementById('backBtn');
-        const adminAccessBtn = document.getElementById('adminAccessBtn');
-        const loginBtn = document.getElementById('loginBtn');
-        const cancelLoginBtn = document.getElementById('cancelLoginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const usernameInput = document.getElementById('usernameInput');
-        const passwordInput = document.getElementById('passwordInput');
-        const errorMessage = document.getElementById('errorMessage');
-        const loginError = document.getElementById('loginError');
-        const toast = document.getElementById('toast');
-        const editForm = document.getElementById('editForm');
-        const shipmentList = document.getElementById('shipmentList');
-        const saveBtn = document.getElementById('saveBtn');
-        const cancelEditBtn = document.getElementById('cancelEditBtn');
-
-        let currentEditingCode = null;
-
-        // =====================
-        // HELPER FUNCTIONS
-        // =====================
-        function showSection(section) {
-            trackingSection.style.display = 'none';
-            resultSection.classList.remove('active');
-            adminLogin.classList.remove('active');
-            adminPanel.classList.remove('active');
-
-            if (section === 'tracking') {
-                trackingSection.style.display = 'block';
-                adminAccessBtn.style.display = 'block';
-            } else if (section === 'result') {
-                resultSection.classList.add('active');
-                adminAccessBtn.style.display = 'block';
-            } else if (section === 'login') {
-                adminLogin.classList.add('active');
-                adminAccessBtn.style.display = 'none';
-            } else if (section === 'admin') {
-                adminPanel.classList.add('active');
-                adminAccessBtn.style.display = 'none';
-            }
-        }
-
-        function showToast(message) {
-            toast.textContent = message;
-            toast.classList.add('active');
-            setTimeout(() => toast.classList.remove('active'), 3000);
-        }
-
-        function showError(element, message) {
-            element.textContent = message;
-            element.style.display = 'block';
-            setTimeout(() => element.style.display = 'none', 5000);
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        function formatDeliveryDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        function getStatusIndex(status) {
-            return STATUSES.indexOf(status);
-        }
-
-        function getProgressPercentage(status) {
-            const index = getStatusIndex(status);
-            if (index === -1) return 0;
-            return Math.round((index / (STATUSES.length - 1)) * 100);
-        }
-
-        // =====================
-        // DISPLAY RESULT
-        // =====================
-        function displayResult(shipment) {
-            document.getElementById('clientName').textContent = shipment.clientName;
-            document.getElementById('trackingCodeDisplay').textContent = shipment.trackingCode;
-            document.getElementById('statusBadge').textContent = shipment.status;
-            document.getElementById('lastUpdated').textContent = formatDate(shipment.lastUpdate);
-            document.getElementById('deliveryAddress').textContent = shipment.deliveryAddress || 'Not specified';
-            document.getElementById('expectedDelivery').textContent = shipment.estimatedDelivery 
-                ? formatDeliveryDate(shipment.estimatedDelivery) 
-                : 'To be confirmed';
-
-            const notesCard = document.getElementById('notesCard');
-            if (shipment.notes) {
-                document.getElementById('notes').textContent = shipment.notes;
-                notesCard.style.display = 'block';
-            } else {
-                notesCard.style.display = 'none';
-            }
-
-            // Update status badge color
-            const statusBadge = document.getElementById('statusBadge');
-            if (shipment.status === 'Delivered') {
-                statusBadge.className = 'status-badge completed';
-            } else {
-                statusBadge.className = 'status-badge in-progress';
-            }
-
-            // Update map progress
-            const progress = getProgressPercentage(shipment.status);
-            document.getElementById('mapProgress').style.width = progress + '%';
-            document.getElementById('planeIcon').style.left = `calc(10% + ${progress * 0.8}%)`;
-            document.getElementById('progressText').textContent = progress + '% Complete';
-
-            // Build timeline
-            const timeline = document.getElementById('timeline');
-            timeline.innerHTML = '';
-
-            STATUSES.forEach((status, index) => {
-                const currentIndex = getStatusIndex(shipment.status);
-                let state = 'pending';
-                let icon = '⏳';
-
-                if (index < currentIndex) {
-                    state = 'completed';
-                    icon = '✓';
-                } else if (index === currentIndex) {
-                    state = 'current';
-                    icon = '📍';
-                }
-
-                const item = document.createElement('div');
-                item.className = `timeline-item ${state}`;
-                item.innerHTML = `
-                    <div class="timeline-icon ${state}">${icon}</div>
-                    <div class="timeline-content">
-                        <h4>${status}</h4>
-                        <p>${state === 'completed' ? 'Completed' : state === 'current' ? 'Current Status' : 'Pending'}</p>
-                    </div>
-                `;
-                timeline.appendChild(item);
-            });
-
-            showSection('result');
-        }
-
-        // =====================
-        // ADMIN FUNCTIONS
-        // =====================
-        function renderShipmentList() {
-            const shipments = getShipments();
-            shipmentList.innerHTML = '';
-
-            shipments.forEach(shipment => {
-                const card = document.createElement('div');
-                card.className = 'shipment-card';
-                card.innerHTML = `
-                    <div class="shipment-card-header">
-                        <h3>${shipment.clientName}</h3>
-                        <span class="status-badge ${shipment.status === 'Delivered' ? 'completed' : 'in-progress'}">${shipment.status}</span>
-                    </div>
-                    <p>${shipment.trackingCode}</p>
-                `;
-                card.addEventListener('click', () => openEditForm(shipment));
-                shipmentList.appendChild(card);
-            });
-        }
-
-        function openEditForm(shipment) {
-            currentEditingCode = shipment.trackingCode;
-            document.getElementById('editClientName').textContent = shipment.clientName;
-            document.getElementById('editTrackingCode').value = shipment.trackingCode;
-            document.getElementById('editStatus').value = shipment.status;
-            document.getElementById('editNotes').value = shipment.notes || '';
-            editForm.classList.add('active');
-        }
-
-        function closeEditForm() {
-            currentEditingCode = null;
-            editForm.classList.remove('active');
-        }
-
-        // =====================
-        // EVENT LISTENERS
-        // =====================
-        trackBtn.addEventListener('click', () => {
-            const code = trackingInput.value.trim();
-            if (!code) {
-                showError(errorMessage, 'Please enter a tracking code');
+            if (!shipment) {
+                document.getElementById('errorMessage').classList.add('active');
                 return;
             }
 
-            const shipment = findShipment(code);
+            // Update display
+            document.getElementById('clientName').textContent = shipment.clientName;
+            document.getElementById('displayCode').textContent = shipment.trackingCode;
+            document.getElementById('statusBadge').textContent = shipment.status;
+            document.getElementById('lastUpdated').textContent = formatDate(shipment.lastUpdate);
+            document.getElementById('expectedArrival').textContent = formatDeliveryDate(shipment.expectedDelivery);
+            document.getElementById('deliveryAddress').textContent = shipment.deliveryAddress;
+            document.getElementById('shipmentNotes').textContent = shipment.notes;
+
+            // Update map progress
+            const currentIndex = stages.indexOf(shipment.status);
+            const progress = ((currentIndex + 1) / stages.length) * 80;
+            document.getElementById('mapProgress').style.width = progress + '%';
+            document.getElementById('mapPlane').style.left = `calc(10% + ${progress}%)`;
+            document.getElementById('progressLabel').textContent = `🟢 ${Math.round((currentIndex + 1) / stages.length * 100)}% Complete - ${shipment.status}`;
+
+            // Update timeline
+            const timelineHtml = stages.map((stage, index) => {
+                let iconClass = 'pending';
+                let labelClass = 'pending';
+                let icon = '○';
+
+                if (index < currentIndex) {
+                    iconClass = 'completed';
+                    icon = '✓';
+                    labelClass = '';
+                } else if (index === currentIndex) {
+                    iconClass = 'current';
+                    icon = '●';
+                    labelClass = '';
+                }
+
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-icon ${iconClass}">${icon}</div>
+                        <div class="timeline-content">
+                            <div class="timeline-label ${labelClass}">${stage}</div>
+                            ${index <= currentIndex ? `<div class="timeline-date">${index === currentIndex ? 'Current' : 'Completed'}</div>` : ''}
+                        </div>
+                        <div class="timeline-connector"></div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('timeline').innerHTML = timelineHtml;
+            document.getElementById('resultSection').classList.add('active');
+        }
+
+        // Show admin login
+        function showAdminLogin() {
+            document.getElementById('clientSection').style.display = 'none';
+            document.getElementById('adminLogin').classList.add('active');
+            document.getElementById('adminDashboard').classList.remove('active');
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        // Show client section
+        function showClient() {
+            document.getElementById('clientSection').style.display = 'block';
+            document.getElementById('adminLogin').classList.remove('active');
+            document.getElementById('adminDashboard').classList.remove('active');
+        }
+
+        // Admin login
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === 'valradmin' && password === 'VALR@2026') {
+                document.getElementById('adminLogin').classList.remove('active');
+                document.getElementById('adminDashboard').classList.add('active');
+                loadShipmentList();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        // Admin logout
+        function adminLogout() {
+            document.getElementById('adminUsername').value = '';
+            document.getElementById('adminPassword').value = '';
+            showClient();
+        }
+
+        // Load shipment list
+        function loadShipmentList() {
+            const shipments = getShipments();
+            const html = shipments.map(s => `
+                <div class="shipment-card" onclick="editShipment('${s.trackingCode}')">
+                    <div class="shipment-header">
+                        <div class="shipment-client">${s.clientName}</div>
+                        <span class="status-badge">${s.status}</span>
+                    </div>
+                    <div class="shipment-code">${s.trackingCode}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('shipmentList').innerHTML = html;
+        }
+
+        // Edit shipment
+        function editShipment(code) {
+            const shipments = getShipments();
+            const shipment = shipments.find(s => s.trackingCode === code);
+
             if (shipment) {
-                errorMessage.style.display = 'none';
-                displayResult(shipment);
-            } else {
-                showError(errorMessage, 'Tracking code not found. Please check and try again.');
+                document.getElementById('editTrackingCode').value = code;
+                document.getElementById('editClientName').value = shipment.clientName;
+                document.getElementById('editStatus').value = shipment.status;
+                document.getElementById('editAddress').value = shipment.deliveryAddress;
+                document.getElementById('editNotes').value = shipment.notes;
+                document.getElementById('editModal').classList.add('active');
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        // Save shipment
+        function saveShipment() {
+            const code = document.getElementById('editTrackingCode').value;
+            const shipments = getShipments();
+            const index = shipments.findIndex(s => s.trackingCode === code);
+
+            if (index !== -1) {
+                shipments[index].clientName = document.getElementById('editClientName').value;
+                shipments[index].status = document.getElementById('editStatus').value;
+                shipments[index].deliveryAddress = document.getElementById('editAddress').value;
+                shipments[index].notes = document.getElementById('editNotes').value;
+                shipments[index].lastUpdate = new Date().toISOString();
+
+                saveShipments(shipments);
+                loadShipmentList();
+                closeModal();
+                alert('Shipment updated successfully!');
+            }
+        }
+
+        // Initialize on page load
+        initData();
+
+        // Allow Enter key to track
+        document.getElementById('trackingInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                trackShipment();
             }
         });
-
-        trackingInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') trackBtn.click();
-        });
-
-        backBtn.addEventListener('click', () => {
-            trackingInput.value = '';
-            showSection('tracking');
-        });
-
-        adminAccessBtn.addEventListener('click', () => {
-            showSection('login');
-        });
-
-        loginBtn.addEventListener('click', () => {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value;
-
-            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                loginError.style.display = 'none';
-                usernameInput.value = '';
-                passwordInput.value = '';
-                renderShipmentList();
-                showSection('admin');
-                showToast('Welcome, Admin!');
-            } else {
-                showError(loginError, 'Invalid username or password');
-            }
-        });
-
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loginBtn.click();
-        });
-
-        cancelLoginBtn.addEventListener('click', () => {
-            usernameInput.value = '';
-            passwordInput.value = '';
-            loginError.style.display = 'none';
-            showSection('tracking');
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            closeEditForm();
-            showSection('tracking');
-            showToast('Logged out successfully');
-        });
-
-        saveBtn.addEventListener('click', () => {
-            if (!currentEditingCode) return;
-
-            const status = document.getElementById('editStatus').value;
-            const notes = document.getElementById('editNotes').value;
-
-            updateShipment(currentEditingCode, { status, notes });
-            closeEditForm();
-            renderShipmentList();
-            showToast('Shipment updated successfully!');
-        });
-
-        cancelEditBtn.addEventListener('click', closeEditForm);
-
-        // Initialize
-        showSection('tracking');
     </script>
 </body>
 </html>
