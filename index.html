@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALR Card Shipment Tracking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0a1628 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .admin-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #93c5fd;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Tracking Form */
+        .tracking-form {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-title h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .form-title p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-direction: column;
+        }
+
+        .tracking-input {
+            flex: 1;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .tracking-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .tracking-input::placeholder {
+            color: #64748b;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .submit-btn {
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .info-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .info-box p {
+            color: #93c5fd;
+            font-size: 0.85rem;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Result Section */
+        .result-section {
+            display: none;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tracking-code-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Shipment Map */
+        .shipment-map {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .map-header h3 {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 0.25rem;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .map-visual {
+            position: relative;
+            height: 120px;
+            margin: 1.5rem 0;
+        }
+
+        .map-line {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+
+        .map-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .location-point {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .location-point.usa { left: 10%; }
+        .location-point.sa { right: 10%; transform: translate(50%, -50%); }
+
+        .location-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 3px solid #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-point.sa .location-icon {
+            border-color: #22c55e;
+        }
+
+        .location-name {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .plane-icon {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: left 0.5s ease;
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .info-card.full-width {
+            grid-column: span 2;
+        }
+
+        .info-card-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-card-value {
+            font-size: 0.95rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.in-progress {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .status-badge.completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 35px;
+            bottom: 0;
+            width: 2px;
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-icon.completed {
+            background: #22c55e;
+            color: white;
+        }
+
+        .timeline-icon.current {
+            background: #3b82f6;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-icon.pending {
+            background: rgba(100, 116, 139, 0.5);
+            color: #64748b;
+        }
+
+        .timeline-content h4 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content p {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .timeline-item.completed .timeline-content h4 {
+            color: #4ade80;
+        }
+
+        .timeline-item.current .timeline-content h4 {
+            color: #60a5fa;
+        }
+
+        .timeline-item.pending .timeline-content h4 {
+            color: #64748b;
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: transparent;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #93c5fd;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1.5rem auto;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Admin Login */
+        .admin-login {
+            display: none;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .admin-login.active {
+            display: block;
+        }
+
+        .login-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-title h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-title p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .cancel-btn {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 0.9rem;
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid rgba(100, 116, 139, 0.4);
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 0.75rem;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .shipment-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .shipment-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shipment-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .shipment-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .shipment-card-header h3 {
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .shipment-card p {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-family: monospace;
+        }
+
+        /* Edit Form */
+        .edit-form {
+            display: none;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .edit-form h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            font-size: 1rem;
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .save-btn {
+            flex: 1;
+            padding: 0.875rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .cancel-edit-btn {
+            flex: 1;
+            padding: 0.875rem;
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid rgba(100, 116, 139, 0.4);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* Success Toast */
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translate(-50%, 20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-card.full-width {
+                grid-column: span 1;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">📦</div>
+                <div class="logo-text">
+                    <h1>VALR</h1>
+                    <span>Card Logistics</span>
+                </div>
+            </div>
+            <button class="admin-btn" id="adminAccessBtn">🔐 Admin Access</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Client Tracking Section -->
+        <section class="tracking-section" id="trackingSection">
+            <div class="tracking-form">
+                <div class="form-title">
+                    <h2>📍 Track Your Shipment</h2>
+                    <p>Enter your tracking code to see your card status</p>
+                </div>
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <div class="input-group">
+                    <input type="text" class="tracking-input" id="trackingInput" placeholder="Enter your tracking code">
+                    <button class="submit-btn" id="trackBtn">🔍 Track Shipment</button>
+                </div>
+                <div class="info-box">
+                    <p>💳 Your tracking code was provided when your VALR Card was issued</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section class="result-section" id="resultSection">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <h2>Welcome, <span id="clientName"></span>!</h2>
+                <div class="tracking-code-display" id="trackingCodeDisplay"></div>
+            </div>
+
+            <!-- Shipment Map -->
+            <div class="shipment-map">
+                <div class="map-header">
+                    <h3>Shipment Progress</h3>
+                    <div class="live-badge">
+                        <div class="live-dot"></div>
+                        LIVE TRACKING
+                    </div>
+                </div>
+                <div class="map-visual">
+                    <div class="location-point usa">
+                        <div class="location-icon">🇺🇸</div>
+                        <div class="location-name">United States</div>
+                    </div>
+                    <div class="map-line">
+                        <div class="map-progress" id="mapProgress"></div>
+                    </div>
+                    <div class="plane-icon" id="planeIcon">✈️</div>
+                    <div class="location-point sa">
+                        <div class="location-icon">🇿🇦</div>
+                        <div class="location-name">South Africa</div>
+                    </div>
+                </div>
+                <div class="progress-text" id="progressText">0% Complete</div>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-label">Status</div>
+                    <div class="info-card-value"><span class="status-badge in-progress" id="statusBadge"></span></div>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-label">Last Updated</div>
+                    <div class="info-card-value" id="lastUpdated"></div>
+                </div>
+                <div class="info-card full-width">
+                    <div class="info-card-label">Delivery Address</div>
+                    <div class="info-card-value" id="deliveryAddress"></div>
+                </div>
+                <div class="info-card full-width">
+                    <div class="info-card-label">Expected Delivery</div>
+                    <div class="info-card-value" id="expectedDelivery"></div>
+                </div>
+                <div class="info-card full-width" id="notesCard" style="display: none;">
+                    <div class="info-card-label">Notes</div>
+                    <div class="info-card-value" id="notes"></div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline-section">
+                <h3 class="timeline-title">📋 Shipment Timeline</h3>
+                <div class="timeline" id="timeline"></div>
+            </div>
+
+            <button class="back-btn" id="backBtn">← Track Another Shipment</button>
+        </section>
+
+        <!-- Admin Login -->
+        <section class="admin-login" id="adminLogin">
+            <div class="login-card">
+                <div class="login-title">
+                    <h2>🔐 Admin Login</h2>
+                    <p>Enter your credentials to access the dashboard</p>
+                </div>
+                <div id="loginError" class="error-message" style="display: none;"></div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="usernameInput" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter password">
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="cancel-btn" id="cancelLoginBtn">Cancel</button>
+            </div>
+        </section>
+
+        <!-- Admin Panel -->
+        <section class="admin-panel" id="adminPanel">
+            <div class="admin-header">
+                <h2>📊 Admin Dashboard</h2>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+
+            <!-- Edit Form -->
+            <div class="edit-form" id="editForm">
+                <h3>✏️ Edit Shipment: <span id="editClientName"></span></h3>
+                <div class="form-group">
+                    <label>Tracking Code</label>
+                    <input type="text" id="editTrackingCode" readonly style="opacity: 0.7;">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="editStatus">
+                        <option value="Card issued & funded">Card issued & funded</option>
+                        <option value="Secured for shipment">Secured for shipment</option>
+                        <option value="Dispatched from US">Dispatched from US</option>
+                        <option value="In transit (international)">In transit (international)</option>
+                        <option value="Arrived in South Africa">Arrived in South Africa</option>
+                        <option value="Ready for final delivery">Ready for final delivery</option>
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="editNotes" placeholder="Add delivery notes..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button class="save-btn" id="saveBtn">💾 Save Changes</button>
+                    <button class="cancel-edit-btn" id="cancelEditBtn">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Shipment List -->
+            <div class="shipment-list" id="shipmentList"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 VALR Card Logistics. All rights reserved.</p>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // =====================
+        // DATA & STORAGE
+        // =====================
+        const STORAGE_KEY = 'valr_shipments_v5';
+        const ADMIN_USERNAME = 'valradmin';
+        const ADMIN_PASSWORD = 'VALR@2026';
+
+        const STATUSES = [
+            'Card issued & funded',
+            'Secured for shipment',
+            'Dispatched from US',
+            'In transit (international)',
+            'Arrived in South Africa',
+            'Ready for final delivery',
+            'Delivered'
+        ];
+
+        const DEFAULT_SHIPMENTS = [
+            {
+                trackingCode: 'VALR-US-ZA-A9F72Q',
+                clientName: 'Philadelphia',
+                status: 'Secured for shipment',
+                origin: 'United States',
+                destination: 'South Africa',
+                deliveryAddress: '480 Eritrea Street, Tsutsumani Village, Alexandra Township 2090',
+                estimatedDelivery: '2026-02-10',
+                lastUpdate: new Date().toISOString(),
+                notes: 'Ready for shipping. Diplomatic flight scheduled for 10th February 2026.'
+            }
+        ];
+
+        function getShipments() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            if (!data) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_SHIPMENTS));
+                return DEFAULT_SHIPMENTS;
+            }
+            return JSON.parse(data);
+        }
+
+        function saveShipments(shipments) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(shipments));
+        }
+
+        function findShipment(trackingCode) {
+            const shipments = getShipments();
+            return shipments.find(s => s.trackingCode.toUpperCase() === trackingCode.toUpperCase());
+        }
+
+        function updateShipment(trackingCode, updates) {
+            const shipments = getShipments();
+            const index = shipments.findIndex(s => s.trackingCode === trackingCode);
+            if (index !== -1) {
+                shipments[index] = { ...shipments[index], ...updates, lastUpdate: new Date().toISOString() };
+                saveShipments(shipments);
+                return shipments[index];
+            }
+            return null;
+        }
+
+        // =====================
+        // UI ELEMENTS
+        // =====================
+        const trackingSection = document.getElementById('trackingSection');
+        const resultSection = document.getElementById('resultSection');
+        const adminLogin = document.getElementById('adminLogin');
+        const adminPanel = document.getElementById('adminPanel');
+        const trackingInput = document.getElementById('trackingInput');
+        const trackBtn = document.getElementById('trackBtn');
+        const backBtn = document.getElementById('backBtn');
+        const adminAccessBtn = document.getElementById('adminAccessBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const usernameInput = document.getElementById('usernameInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const loginError = document.getElementById('loginError');
+        const toast = document.getElementById('toast');
+        const editForm = document.getElementById('editForm');
+        const shipmentList = document.getElementById('shipmentList');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+        let currentEditingCode = null;
+
+        // =====================
+        // HELPER FUNCTIONS
+        // =====================
+        function showSection(section) {
+            trackingSection.style.display = 'none';
+            resultSection.classList.remove('active');
+            adminLogin.classList.remove('active');
+            adminPanel.classList.remove('active');
+
+            if (section === 'tracking') {
+                trackingSection.style.display = 'block';
+                adminAccessBtn.style.display = 'block';
+            } else if (section === 'result') {
+                resultSection.classList.add('active');
+                adminAccessBtn.style.display = 'block';
+            } else if (section === 'login') {
+                adminLogin.classList.add('active');
+                adminAccessBtn.style.display = 'none';
+            } else if (section === 'admin') {
+                adminPanel.classList.add('active');
+                adminAccessBtn.style.display = 'none';
+            }
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 3000);
+        }
+
+        function showError(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+            setTimeout(() => element.style.display = 'none', 5000);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDeliveryDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function getStatusIndex(status) {
+            return STATUSES.indexOf(status);
+        }
+
+        function getProgressPercentage(status) {
+            const index = getStatusIndex(status);
+            if (index === -1) return 0;
+            return Math.round((index / (STATUSES.length - 1)) * 100);
+        }
+
+        // =====================
+        // DISPLAY RESULT
+        // =====================
+        function displayResult(shipment) {
+            document.getElementById('clientName').textContent = shipment.clientName;
+            document.getElementById('trackingCodeDisplay').textContent = shipment.trackingCode;
+            document.getElementById('statusBadge').textContent = shipment.status;
+            document.getElementById('lastUpdated').textContent = formatDate(shipment.lastUpdate);
+            document.getElementById('deliveryAddress').textContent = shipment.deliveryAddress || 'Not specified';
+            document.getElementById('expectedDelivery').textContent = shipment.estimatedDelivery 
+                ? formatDeliveryDate(shipment.estimatedDelivery) 
+                : 'To be confirmed';
+
+            const notesCard = document.getElementById('notesCard');
+            if (shipment.notes) {
+                document.getElementById('notes').textContent = shipment.notes;
+                notesCard.style.display = 'block';
+            } else {
+                notesCard.style.display = 'none';
+            }
+
+            // Update status badge color
+            const statusBadge = document.getElementById('statusBadge');
+            if (shipment.status === 'Delivered') {
+                statusBadge.className = 'status-badge completed';
+            } else {
+                statusBadge.className = 'status-badge in-progress';
+            }
+
+            // Update map progress
+            const progress = getProgressPercentage(shipment.status);
+            document.getElementById('mapProgress').style.width = progress + '%';
+            document.getElementById('planeIcon').style.left = `calc(10% + ${progress * 0.8}%)`;
+            document.getElementById('progressText').textContent = progress + '% Complete';
+
+            // Build timeline
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+
+            STATUSES.forEach((status, index) => {
+                const currentIndex = getStatusIndex(shipment.status);
+                let state = 'pending';
+                let icon = '⏳';
+
+                if (index < currentIndex) {
+                    state = 'completed';
+                    icon = '✓';
+                } else if (index === currentIndex) {
+                    state = 'current';
+                    icon = '📍';
+                }
+
+                const item = document.createElement('div');
+                item.className = `timeline-item ${state}`;
+                item.innerHTML = `
+                    <div class="timeline-icon ${state}">${icon}</div>
+                    <div class="timeline-content">
+                        <h4>${status}</h4>
+                        <p>${state === 'completed' ? 'Completed' : state === 'current' ? 'Current Status' : 'Pending'}</p>
+                    </div>
+                `;
+                timeline.appendChild(item);
+            });
+
+            showSection('result');
+        }
+
+        // =====================
+        // ADMIN FUNCTIONS
+        // =====================
+        function renderShipmentList() {
+            const shipments = getShipments();
+            shipmentList.innerHTML = '';
+
+            shipments.forEach(shipment => {
+                const card = document.createElement('div');
+                card.className = 'shipment-card';
+                card.innerHTML = `
+                    <div class="shipment-card-header">
+                        <h3>${shipment.clientName}</h3>
+                        <span class="status-badge ${shipment.status === 'Delivered' ? 'completed' : 'in-progress'}">${shipment.status}</span>
+                    </div>
+                    <p>${shipment.trackingCode}</p>
+                `;
+                card.addEventListener('click', () => openEditForm(shipment));
+                shipmentList.appendChild(card);
+            });
+        }
+
+        function openEditForm(shipment) {
+            currentEditingCode = shipment.trackingCode;
+            document.getElementById('editClientName').textContent = shipment.clientName;
+            document.getElementById('editTrackingCode').value = shipment.trackingCode;
+            document.getElementById('editStatus').value = shipment.status;
+            document.getElementById('editNotes').value = shipment.notes || '';
+            editForm.classList.add('active');
+        }
+
+        function closeEditForm() {
+            currentEditingCode = null;
+            editForm.classList.remove('active');
+        }
+
+        // =====================
+        // EVENT LISTENERS
+        // =====================
+        trackBtn.addEventListener('click', () => {
+            const code = trackingInput.value.trim();
+            if (!code) {
+                showError(errorMessage, 'Please enter a tracking code');
+                return;
+            }
+
+            const shipment = findShipment(code);
+            if (shipment) {
+                errorMessage.style.display = 'none';
+                displayResult(shipment);
+            } else {
+                showError(errorMessage, 'Tracking code not found. Please check and try again.');
+            }
+        });
+
+        trackingInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') trackBtn.click();
+        });
+
+        backBtn.addEventListener('click', () => {
+            trackingInput.value = '';
+            showSection('tracking');
+        });
+
+        adminAccessBtn.addEventListener('click', () => {
+            showSection('login');
+        });
+
+        loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                loginError.style.display = 'none';
+                usernameInput.value = '';
+                passwordInput.value = '';
+                renderShipmentList();
+                showSection('admin');
+                showToast('Welcome, Admin!');
+            } else {
+                showError(loginError, 'Invalid username or password');
+            }
+        });
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+
+        cancelLoginBtn.addEventListener('click', () => {
+            usernameInput.value = '';
+            passwordInput.value = '';
+            loginError.style.display = 'none';
+            showSection('tracking');
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            closeEditForm();
+            showSection('tracking');
+            showToast('Logged out successfully');
+        });
+
+        saveBtn.addEventListener('click', () => {
+            if (!currentEditingCode) return;
+
+            const status = document.getElementById('editStatus').value;
+            const notes = document.getElementById('editNotes').value;
+
+            updateShipment(currentEditingCode, { status, notes });
+            closeEditForm();
+            renderShipmentList();
+            showToast('Shipment updated successfully!');
+        });
+
+        cancelEditBtn.addEventListener('click', closeEditForm);
+
+        // Initialize
+        showSection('tracking');
+    </script>
+</body>
+</html>
